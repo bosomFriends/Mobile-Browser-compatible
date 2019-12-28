@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>利用js识别手机端的浏览器</title>
+</head>
+<body>
+    
+
+    <div class="box">
+        <img id="img" src="" alt="">
+    </div>
+
+
+
+
+    <script>
+        var flag = isPc()
+        // 表明了此时我们手机端
+        if(flag===false) {
+            var isType = myBrowser()
+            var img = document.getElementById('img')
+            // 获取我们的手机端浏览器的型号
+            switch(isType) {
+                case 'QQ': 
+                img.src='./imges/QQ.png'
+                break;
+                case 'UC':
+                img.src='./imges/QQ.png'
+                break;
+                case 'Opera':
+                img.src='./imges/iphone.png'
+                break;
+                case 'FF':
+                img.src='./imges/fixfore.png'
+                break;
+                case 'Chrome':
+                img.src="./imges/chrome.png"
+                break;
+            }
+        }
+        function IsPC(){  
+            var userAgentInfo = navigator.userAgent;
+            var Agents = new Array("Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod");  
+            var flag = true;  
+            for (var v = 0; v < Agents.length; v++) {  
+                if (userAgentInfo.indexOf(Agents[v]) > 0) { flag = false; break; }  
+            }  
+            return flag;  
+        }
+
+        function myBrowser() {
+            var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
+            var isOpera = userAgent.indexOf("Opera") > -1; //判断是否Opera浏览器
+            var isIE = userAgent.indexOf("compatible") > -1
+                    && userAgent.indexOf("MSIE") > -1 && !isOpera; //判断是否IE浏览器
+            var isEdge = userAgent.indexOf("Edge") > -1; //判断是否IE的Edge浏览器
+            var isFF = userAgent.indexOf("Firefox") > -1; //判断是否Firefox浏览器
+            var isSafari = userAgent.indexOf("Safari") > -1
+                    && userAgent.indexOf("Chrome") == -1; //判断是否Safari浏览器
+            var isChrome = userAgent.indexOf("Chrome") > -1
+                    && userAgent.indexOf("Safari") > -1; //判断Chrome浏览器
+
+            var ua = navigator.userAgent.toLowerCase() // 判断是否为QQ浏览器
+            if(!!ua.match(/mqqbrowser|qzone|qqbrowser/i)) {
+                return 'QQ'
+            }
+            var isUC = navigator.userAgent.indexOf('UCBrowser') > -1 // 判断是狗
+            if(isUC) {
+                return 'UC'
+            } 
+
+            if (isIE) {
+                var reIE = new RegExp("MSIE (\\d+\\.\\d+);");
+                reIE.test(userAgent);
+                var fIEVersion = parseFloat(RegExp["$1"]);
+                if (fIEVersion == 7) {
+                    return "IE7";
+                } else if (fIEVersion == 8) {
+                    return "IE8";
+                } else if (fIEVersion == 9) {
+                    return "IE9";
+                } else if (fIEVersion == 10) {
+                    return "IE10";
+                } else if (fIEVersion == 11) {
+                    return "IE11";
+                } else {
+                    return "0";
+                }//IE版本过低
+                
+                return "IE";
+            }
+            if (isOpera) {
+                return "Opera";
+            }
+            if (isEdge) {
+                return "Edge";
+            }
+            if (isFF) {
+                return "FF";
+            }
+            if (isSafari) {
+                return "Safari";
+            }
+            if (isChrome) {
+                return "Chrome";
+            }
+            
+        }
+    </script>
+</body>
+</html>
